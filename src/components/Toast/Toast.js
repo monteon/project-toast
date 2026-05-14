@@ -6,6 +6,7 @@ import {
   Info,
   X,
 } from 'react-feather';
+import { ToastContext } from '../ToastProvider';
 
 import VisuallyHidden from '../VisuallyHidden';
 
@@ -18,7 +19,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ id, variant, dismissToast, children }) {
+function Toast({ id, variant, children }) {
+  const { dismissToast } = React.useContext(ToastContext);
   const IconTag = ICONS_BY_VARIANT[variant];
 
   return (
