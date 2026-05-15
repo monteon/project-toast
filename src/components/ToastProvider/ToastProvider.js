@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const ToastContext = React.createContext();
 
 function ToastProvider({ children }) {
   const [toastList, setToastList] = React.useState([]);
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.code === 'Escape') {
+        setToastList([]);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   function createToast(message, variant) {
     const newToast = {
